@@ -1,0 +1,27 @@
+name: 🚀 Deploy To Docker Server
+
+on:
+    push:
+        branches: [master]
+
+    workflow_dispatch:
+
+jobs:
+    Build:
+        runs-on: self-hosted
+
+        steps:
+            - name: 🛒 Checkout Repo
+              uses: actions/checkout@v3
+
+            - name: 🌍 .env file
+              run: |
+                  echo '${{ secrets.ENV_LIVE_B64 }}' | base64 -d > .env
+
+            - name: 🐳 Run docker compose
+              run: |
+                  docker compose up -d
+
+            - name: 🛢️ Import Database
+              run: |
+                  ./database/database_load.sh ./database/backup.sql
