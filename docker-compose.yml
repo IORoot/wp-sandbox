@@ -90,8 +90,8 @@ services:
     container_name: sandboxcom_webserver_live
     restart: unless-stopped
     ports:
-      - "2180:80"
-      - "21443:443"
+      - "2380:80"
+      - "23443:443"
     volumes:
       - com_website-data:/var/www/html
       - ${PWD}/config/nginx/nginx-conf-live:/etc/nginx/conf.d
